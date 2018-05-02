@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="">
+    <div>
+      <label for="inputFirstName">First Name</label>
+      <input id="inputFirstName " name="first-name" type="text" placeholder="Jane" required>
+      <label for="inputLastName">Last Name</label>
+      <input id="inputLastName" name="last-name" type="text" placeholder="Doe" required>
+    </div>
+    <div>
+      <label for="inputMaleChoice">Male</label>
+      <input id="inputMaleChoice" type="radio" name="gender-choice">
+      <label for="inputFemaleChoice">Female</label>
+      <input id="inputFemaleChoice" type="radio" name="gender-choice">
+      <label for="inputOtherChoice">Other</label>
+      <input id="inputOtherChoice" type="radio" name="gender-choice">
+    </div>
+    <div>
+      <label for="inputEmail">Email</label>
+      <input id="inputEmail" name="email" type="email" placeholder="jane@doe.com" required>
+      <label for="inputPassword">Password</label>
+      <input id="inputPassword" name="password" type="password" pattern=".{5,10}" title="Password must be between 5-10 characters" required>
+    </div>
+    <div>
+      <label for="selectMonth">Birthday</label>
+      <select id="selectMonth" name="birthday-month">
+        <option value="0" selected disabled>Month</option>
+        <option value="Jan">January</option>
+        <option value="Feb">February</option>
+        <option value="Mar">March</option>
+        <option value="Apr">April</option>
+      </select>
+      <select name="birthday-day">
+        <option value="0" selected disabled>Day</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+      </select>
+      <select name="birthday-year">
+        <option value="0" selected disabled>Year</option>
+        <option value="1984">1984</option>
+        <option value="1985">1985</option>
+        <option value="1986">1986</option>
+      </select>
+    </div>
+    <div>
+
+      <label for="inputTAC">I agree to the terms and conditions</label>
+      <input id="inputTAC" type="checkbox" name="terms-and-conditions" />
+    </div>
+
+    <input type="submit" value="Submit">
+
+  </form>
+</body>
+
+</html>
