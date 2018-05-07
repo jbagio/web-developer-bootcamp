@@ -1,0 +1,11 @@
+<h1>Results page</h1>
+
+<% if (results) { %>
+  <% results.forEach((result) => { %>
+    <li><strong><%= result.Title %></strong> - <%= result.Year %></li>
+  <% }); %>
+<% } else { %>
+  No results found.
+<% } %>
+
+<a href="/">Search again</a>
