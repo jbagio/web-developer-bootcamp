@@ -1,0 +1,10 @@
+<h1>Shopping list</h1>
+
+<% list.forEach(item => { %>
+  <li><%= item %></li>
+<% }); %>
+
+<form action="/additem" method="POST">
+  <input type="text" name="itemName" placeholder="item name" required>
+  <button>Add to list</button>
+</form>
