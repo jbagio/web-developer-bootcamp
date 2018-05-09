@@ -1,6 +1,7 @@
 // Packages
 const express = require('express');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 
 // App config
@@ -8,6 +9,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(methodOverride('_method'));
 const port = process.env.PORT || 3000;
 
 // Mongoose / model config
@@ -46,7 +48,7 @@ app.post('/blog-posts', (req, res) => {
     return res.sendStatus('400');
   }
   // add new blog post to the DB
-  BlogPost.create(req.body.blog, (err, blogPost) => {
+  BlogPost.create(req.body.blogPost, (err, blogPost) => {
     if (err) {
       console.log(err);
       res.render('new');
@@ -64,6 +66,40 @@ app.get('/blog-posts/:id', (req, res) => {
       res.redirect('/blog-posts');
     } else {
       res.render('show', {blogPost: blogPost});
+    }
+  });
+});
+
+// Edit
+app.get('/blog-posts/:id/edit', (req, res) => {
+  // get blog post from db
+  BlogPost.findById(req.params.id, (err, blogPost) => {
+    if (err) {
+      res.redirect('/blog-posts');
+    } else {
+      res.render('edit', {blogPost: blogPost});
+    }
+  });
+});
+
+// Update
+app.put('/blog-posts/:id', (req, res) => {
+  BlogPost.findByIdAndUpdate(req.params.id, req.body.blogPost, (err, blogPost) => {
+    if (err) {
+      res.redirect('/blog-posts');
+    } else {
+      res.redirect(`/blog-posts/${req.body.blogPost}`); //can also use blogPost._id
+    }
+  });
+});
+
+// Delete
+app.delete('/blog-posts/:id', (req, res) => {
+  BlogPost.findByIdAndRemove(req.params.id, (err, blogPost) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.redirect('/blog-posts/');
     }
   });
 });
