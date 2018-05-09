@@ -1,0 +1,17 @@
+<% include partials/header %>
+
+<h1>Index</h1>
+
+<% blogPosts.forEach(blogPost => { %>
+  <div>
+    <h2>
+      <%= blogPost.title %>
+    </h2>
+    <img src="<%= blogPost.image %>" alt="<%= blogPost.title %>">
+    <span><%= blogPost.created %></span>
+    <p><%- blogPost.body.substring(0, 100) %>...</p>
+    <a href="/blog-posts/<%= blogPost._id %>">Read more</a>
+  </div>
+<% }) %>
+
+<% include partials/footer %>
