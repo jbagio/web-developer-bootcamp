@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
+const expressSanitizer = require('express-sanitizer');
 
 // App config
 const app = express();
@@ -10,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
+app.use(expressSanitizer());
 const port = process.env.PORT || 3000;
 
 // Mongoose / model config
@@ -47,6 +49,8 @@ app.post('/blog-posts', (req, res) => {
   if (!req.body) {
     return res.sendStatus('400');
   }
+  // sanitize possible html input
+  req.body.blogPost.body = req.sanitize(req.body.blogPost.body);
   // add new blog post to the DB
   BlogPost.create(req.body.blogPost, (err, blogPost) => {
     if (err) {
@@ -84,11 +88,13 @@ app.get('/blog-posts/:id/edit', (req, res) => {
 
 // Update
 app.put('/blog-posts/:id', (req, res) => {
+  // sanitize possible html input
+  req.body.blogPost.body = req.sanitize(req.body.blogPost.body);
   BlogPost.findByIdAndUpdate(req.params.id, req.body.blogPost, (err, blogPost) => {
     if (err) {
       res.redirect('/blog-posts');
     } else {
-      res.redirect(`/blog-posts/${req.body.blogPost}`); //can also use blogPost._id
+      res.redirect(`/blog-posts/${req.body.blogPost}`); // can also use blogPost._id
     }
   });
 });
@@ -105,4 +111,4 @@ app.delete('/blog-posts/:id', (req, res) => {
 });
 
 // Start server
-app.listen(port, () => console.log(`Server listening on port ${port}`))
+app.listen(port, () => console.log(`Server listening on port ${port}`));

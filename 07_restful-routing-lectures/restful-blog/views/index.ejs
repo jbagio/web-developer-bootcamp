@@ -1,17 +1,31 @@
 <% include partials/header %>
 
-<h1>Index</h1>
-
-<% blogPosts.forEach(blogPost => { %>
-  <div>
-    <h2>
-      <%= blogPost.title %>
-    </h2>
-    <img src="<%= blogPost.image %>" alt="<%= blogPost.title %>">
-    <span><%= blogPost.created %></span>
-    <p><%- blogPost.body.substring(0, 100) %>...</p>
-    <a href="/blog-posts/<%= blogPost._id %>">Read more</a>
+<div class="ui main text container">
+  <div class="ui huge header">Home</div>
+  <div class="ui divided items">
+    <% blogPosts.forEach(blogPost => { %>
+      <div class="item">
+        <div class="image">
+          <img src="<%= blogPost.image %>" alt="<%= blogPost.title %>">
+        </div>
+        <div class="content">
+          <a class="header" href="/blog-posts/<%= blogPost._id %>"><%= blogPost.title %></a>
+          <div class="meta">
+            <span><%= blogPost.created.toDateString() %></span>
+          </div>
+          <div class="description">
+            <p><%- blogPost.body.substring(0, 100) %>...</p>
+          </div>
+          <div class="extra">
+            <a class="ui floated grey button" href="/blog-posts/<%= blogPost._id %>">
+              Read more
+              <i class="icon chevron circle right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
   </div>
-<% }) %>
+</div>
 
 <% include partials/footer %>
